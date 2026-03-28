@@ -1,0 +1,24 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/publish",
+      "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/cron/sync-metrics",
+      "schedule": "0 */4 * * *"
+    },
+    {
+      "path": "/api/cron/sync-comments",
+      "schedule": "0 */2 * * *"
+    },
+    {
+      "path": "/api/cron/detect-topics",
+      "schedule": "0 3 * * *"
+    },
+    {
+      "path": "/api/cron/maintenance",
+      "schedule": "0 4 * * *"
+    }
+  ]
+}

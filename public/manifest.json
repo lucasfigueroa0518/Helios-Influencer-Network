@@ -1,0 +1,12 @@
+{
+  "name": "Helios Influencer Network",
+  "short_name": "HIN",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FF5E1A",
+  "icons": [
+    { "src": "/Helios-logo.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/Helios-logo.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
