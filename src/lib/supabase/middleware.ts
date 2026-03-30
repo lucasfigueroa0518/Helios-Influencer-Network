@@ -32,13 +32,14 @@ export async function updateSession(request: NextRequest) {
   const isAuthPage =
     request.nextUrl.pathname.startsWith('/login') ||
     request.nextUrl.pathname.startsWith('/signup');
+  const isPublicPage = request.nextUrl.pathname.startsWith('/privacy');
   const isApiRoute = request.nextUrl.pathname.startsWith('/api');
   const isPublicApi =
     request.nextUrl.pathname.startsWith('/api/auth') ||
     request.nextUrl.pathname.startsWith('/api/health') ||
     request.nextUrl.pathname.startsWith('/api/webhooks');
 
-  if (!user && !isAuthPage && !isPublicApi && !isApiRoute) {
+  if (!user && !isAuthPage && !isPublicPage && !isPublicApi && !isApiRoute) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
     return NextResponse.redirect(url);
