@@ -32,7 +32,7 @@ A full-stack SaaS platform for managing AI-powered Instagram influencer personas
    ```bash
    npm install
    ```
-3. Copy `.env.example` to `.env.local` and fill in your credentials
+3. Copy `.env.example` to `.env.local` and fill in your credentials. For Instagram, use your Meta app’s **Facebook** app ID and secret; set `INSTAGRAM_REDIRECT_URI` to `{NEXT_PUBLIC_APP_URL}/api/auth/callback` and register that exact URL under **Facebook Login → Valid OAuth Redirect URIs** in the [Meta Developer](https://developers.facebook.com/) app settings.
 4. Run the database migrations in order against your Supabase project:
    ```
    supabase/001_schema.sql

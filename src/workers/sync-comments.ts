@@ -3,7 +3,7 @@ import { createServiceRoleClient } from '@/lib/supabase/server';
 import { decrypt } from '@/lib/encryption';
 import { checkRateLimit, rateLimiters } from '@/lib/rate-limit';
 
-const GRAPH_API_BASE = 'https://graph.instagram.com/v21.0';
+import { GRAPH_INSTAGRAM_API_BASE } from '@/lib/instagram/constants';
 
 export async function syncComments(_job: Job) {
   const supabase = createServiceRoleClient();
@@ -40,7 +40,7 @@ export async function syncComments(_job: Job) {
 
       try {
         const res = await fetch(
-          `${GRAPH_API_BASE}/${post.instagram_post_id}/comments?fields=id,text,username,timestamp&access_token=${token}`
+          `${GRAPH_INSTAGRAM_API_BASE}/${post.instagram_post_id}/comments?fields=id,text,username,timestamp&access_token=${token}`
         );
         if (!res.ok) continue;
 

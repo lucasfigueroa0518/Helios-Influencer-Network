@@ -1,4 +1,4 @@
-const GRAPH_API_BASE = 'https://graph.instagram.com/v21.0';
+import { GRAPH_FACEBOOK_API_BASE, GRAPH_INSTAGRAM_API_BASE } from '@/lib/instagram/constants';
 
 export interface IGProfile {
   id: string;
@@ -17,7 +17,7 @@ export async function getInstagramProfile(
 ): Promise<IGProfile> {
   const fields = 'id,username,name,biography,profile_picture_url,followers_count,follows_count,media_count';
   const res = await fetch(
-    `${GRAPH_API_BASE}/${igUserId}?fields=${fields}&access_token=${accessToken}`
+    `${GRAPH_INSTAGRAM_API_BASE}/${igUserId}?fields=${fields}&access_token=${accessToken}`
   );
 
   if (!res.ok) {
@@ -32,7 +32,7 @@ export async function getInstagramPages(accessToken: string): Promise<
   Array<{ id: string; instagram_business_account?: { id: string } }>
 > {
   const res = await fetch(
-    `https://graph.facebook.com/v21.0/me/accounts?fields=instagram_business_account&access_token=${accessToken}`
+    `${GRAPH_FACEBOOK_API_BASE}/me/accounts?fields=instagram_business_account&access_token=${accessToken}`
   );
 
   if (!res.ok) {
@@ -57,7 +57,7 @@ export async function getPostInsights(
 }> {
   const metrics = 'likes,comments,reach,impressions,saved,shares';
   const res = await fetch(
-    `${GRAPH_API_BASE}/${mediaId}/insights?metric=${metrics}&access_token=${accessToken}`
+    `${GRAPH_INSTAGRAM_API_BASE}/${mediaId}/insights?metric=${metrics}&access_token=${accessToken}`
   );
 
   if (!res.ok) {

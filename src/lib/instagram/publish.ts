@@ -1,4 +1,4 @@
-const GRAPH_API_BASE = 'https://graph.instagram.com/v21.0';
+import { GRAPH_INSTAGRAM_API_BASE } from '@/lib/instagram/constants';
 
 interface PublishResult {
   id: string;
@@ -13,7 +13,7 @@ export async function publishSingleImage(
   caption: string
 ): Promise<PublishResult> {
   const containerRes = await fetch(
-    `${GRAPH_API_BASE}/${igUserId}/media`,
+    `${GRAPH_INSTAGRAM_API_BASE}/${igUserId}/media`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -35,7 +35,7 @@ export async function publishSingleImage(
   await waitForContainer(accessToken, container.id);
 
   const publishRes = await fetch(
-    `${GRAPH_API_BASE}/${igUserId}/media_publish`,
+    `${GRAPH_INSTAGRAM_API_BASE}/${igUserId}/media_publish`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -54,7 +54,7 @@ export async function publishSingleImage(
   const published = await publishRes.json();
 
   const mediaRes = await fetch(
-    `${GRAPH_API_BASE}/${published.id}?fields=permalink,media_url&access_token=${accessToken}`
+    `${GRAPH_INSTAGRAM_API_BASE}/${published.id}?fields=permalink,media_url&access_token=${accessToken}`
   );
   const mediaData = await mediaRes.json();
 
@@ -74,7 +74,7 @@ export async function publishCarousel(
   const childIds: string[] = [];
 
   for (const url of imageUrls) {
-    const res = await fetch(`${GRAPH_API_BASE}/${igUserId}/media`, {
+    const res = await fetch(`${GRAPH_INSTAGRAM_API_BASE}/${igUserId}/media`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -92,7 +92,7 @@ export async function publishCarousel(
     await waitForContainer(accessToken, id);
   }
 
-  const containerRes = await fetch(`${GRAPH_API_BASE}/${igUserId}/media`, {
+  const containerRes = await fetch(`${GRAPH_INSTAGRAM_API_BASE}/${igUserId}/media`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -108,7 +108,7 @@ export async function publishCarousel(
 
   await waitForContainer(accessToken, container.id);
 
-  const publishRes = await fetch(`${GRAPH_API_BASE}/${igUserId}/media_publish`, {
+  const publishRes = await fetch(`${GRAPH_INSTAGRAM_API_BASE}/${igUserId}/media_publish`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ creation_id: container.id, access_token: accessToken }),
@@ -126,7 +126,7 @@ export async function publishReel(
   videoUrl: string,
   caption: string
 ): Promise<PublishResult> {
-  const containerRes = await fetch(`${GRAPH_API_BASE}/${igUserId}/media`, {
+  const containerRes = await fetch(`${GRAPH_INSTAGRAM_API_BASE}/${igUserId}/media`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -142,7 +142,7 @@ export async function publishReel(
 
   await waitForContainer(accessToken, container.id, 60000);
 
-  const publishRes = await fetch(`${GRAPH_API_BASE}/${igUserId}/media_publish`, {
+  const publishRes = await fetch(`${GRAPH_INSTAGRAM_API_BASE}/${igUserId}/media_publish`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ creation_id: container.id, access_token: accessToken }),
@@ -162,7 +162,7 @@ async function waitForContainer(
   const start = Date.now();
   while (Date.now() - start < maxWaitMs) {
     const res = await fetch(
-      `${GRAPH_API_BASE}/${containerId}?fields=status_code&access_token=${accessToken}`
+      `${GRAPH_INSTAGRAM_API_BASE}/${containerId}?fields=status_code&access_token=${accessToken}`
     );
     const data = await res.json();
 
